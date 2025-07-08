@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { quotes } from "./quotes";
-// Import ShadCN UI components (Button, Input, etc.)
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -9,12 +8,6 @@ export default function Home() {
   const [topic, setTopic] = useState("");
   const [selectedQuotes, setSelectedQuotes] = useState<typeof quotes>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  function getRandomQuotes() {
-    // Shuffle and pick 3 quotes
-    const shuffled = [...quotes].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3);
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +25,8 @@ export default function Home() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", background: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, marginBottom: 32 }}>
+    <main className="min-h-screen bg-black flex flex-col items-center justify-center">
+      <form onSubmit={handleSubmit} className="flex gap-2 mb-8">
         <Input
           type="text"
           placeholder="Enter a topic (optional)"
@@ -42,14 +35,18 @@ export default function Home() {
         />
         <Button type="submit">Get Quote</Button>
       </form>
-      <div style={{ maxWidth: 500 }}>
+      <div className="max-w-xl">
         {selectedQuotes.length > 0 && (
           <>
-            <div style={{ marginBottom: 24, padding: 16, border: "1px solid #222", borderRadius: 8, background: "#111" }}>
-              <blockquote style={{ margin: 0, fontStyle: "italic", color: "#fff", fontSize: 22 }}>&ldquo;{selectedQuotes[0].text}&rdquo;</blockquote>
-              <div style={{ textAlign: "right", marginTop: 8, color: "#fff" }}>— {selectedQuotes[0].author}</div>
+            <div className="mb-6 p-4 border border-zinc-800 rounded-lg bg-zinc-900">
+              <blockquote className="italic text-white text-xl">
+                &ldquo;{selectedQuotes[0].text}&rdquo;
+              </blockquote>
+              <div className="text-right mt-2 text-white">
+                — {selectedQuotes[0].author}
+              </div>
             </div>
-            <Button type="button" onClick={handleNextQuote} style={{ background: "#222", color: "#fff" }}>
+            <Button type="button" onClick={handleNextQuote} className="bg-zinc-800 text-white">
               Next Quote
             </Button>
           </>
